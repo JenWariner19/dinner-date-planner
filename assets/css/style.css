@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(69, 228, 69);
+}
+
+#heading {
+    border: solid 7px;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 75px;
+}
+
+#small-head{
+    font-size: 25px;
+    color: aquamarine;
+}
+
+/* box with drop down*/
+.select-box {
+    border: solid 3px;
+    border-radius: 20px;
+    padding: 0;
+    font-size: 20px;
+    display: flex;
+    width: 500px;
+    height: 200px;
+}
+
+/* boxes for content.. Just need to be positioned */
+ section {
+    width: 500px;
+    height: 200px;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: white;
+    }
