@@ -20,11 +20,9 @@ function generateDropdown() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             for(var i = 0; i < data.meals.length; i++) {
                 dropdownList[i] = data.meals[i].strCategory;
             }
-            console.log(dropdownList);
         });
     } else {
         apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
