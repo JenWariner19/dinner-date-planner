@@ -1,10 +1,14 @@
-body {
-    background-color: rgb(69, 228, 69);
+.background {
+    background-size: contain;
 }
 
 #heading {
-    border: solid 7px;
-    border-radius: 20px;
+    font-family: "Dancing Script", sans-serif;
+    font-weight: bold;
+    background-color: #f3f4f6;
+    opacity: 0.7;
+    border: solid 5px;
+    border-radius: 15px;
     padding: 5px;
     margin: 10px;
     justify-content: center;
@@ -14,15 +18,16 @@ body {
 }
 
 #small-head{
-    font-size: 25px;
-    color: aquamarine;
+    font-size: 32px;
 }
 
 /* box with drop down*/
 .select-box {
+    font-family: "Courgette", sans-serif;
     border: solid 3px;
-    border-radius: 20px;
-    padding: 0;
+    border-radius: 15px;
+    background-color: #f3f4f6;
+    padding: 5px;
     font-size: 20px;
     display: flex;
     width: 500px;
@@ -31,9 +36,10 @@ body {
 
 /* boxes for content.. Just need to be positioned */
  section {
+    font-family: "Courgette", sans-serif;
     width: 500px;
     height: 200px;
     border: 3px solid black;
-    border-radius: 20px;
-    background-color: white;
+    border-radius: 15px;
+    background-color: #f3f4f6;
     }
