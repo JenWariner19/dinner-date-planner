@@ -12,7 +12,6 @@ var mealsToDisplay = []; // Randonmly selecting 3 meals from search
 var drinkUrl;
 var drinksFromApi = []; // Full list of drinks from search
 var drinksToDisplay = []; // Randomly selecting 3 drinks from search
-var randomIndex;
 var randomIndexArray = [];
 
 // The following functions have been tested
