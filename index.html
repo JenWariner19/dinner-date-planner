@@ -14,13 +14,13 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body class= "background" style="background-image: url('./assets/images/date\ night\ image.png');">
-    <audio controls>
+    <audio autoplay controls class="fixed bottom-0 right-0">
         <source src="./assets/music/midnight-voices-full.wav" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
-        <div id="heading">
-        <h1>Dinner Date Planner</h1>
-        <h2 id="small-head">Make a Memorable  Impression 🍸</h2>
+        <div id="heading" class="mb-8">
+        <h1 class="font-medium">Dinner Date Planner</h1>
+        <h2 id="small-head" class="font-medium">Make a Memorable  Impression</h2>
         </div>
 
         <div class="grid grid-cols-2">
@@ -29,7 +29,7 @@
                 <div class="options-container">
                     <label class="underline" for="cuisine">Select Your Cuisine</label>
                     <br>
-                    <select class="mt-4" name="protein" id="select-protein">
+                    <select class="mt-4 text-black" name="protein" id="select-protein">
                         <option value=" ">(Please select from the following)</option>
                         <option value="Type">Type of cuisine</option>
                         <option value="Entree">Entree(Protein)</option>
@@ -48,10 +48,10 @@
                <div class="options-container">
                    <label class="underline" for="cocktail">Select Your Cocktail</label>
                    <br>
-                   <select class="mt-4" name="liquor" id="select-liquor">
+                   <select class="mt-4 text-black" name="liquor" id="select-liquor">
                        <option value=" ">(Please select from the following)</option>
-                       <option value="Type">Type of Liquor</option>
-                       <option value="Entree">Ingredient</option>
+                       <option value="Liquor">Type of Liquor</option>
+                       <option value="Ingredient">Ingredient</option>
                    </select>
                </div>
            </div>
