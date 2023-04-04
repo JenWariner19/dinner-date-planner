@@ -1,18 +1,21 @@
-var userSelectionMeal = $('#mealDropdown').find(':selected');
-var userSelectionDrink = $('#drinkDropdown').find(':selected');
-var mealsList = $('.mealsList');
+var selectProtein = $('#select-protein');
+var selectMeal = $('#select-meal');
+var userSelectionDrink = $('#select-liquor').find(':selected');
+var mealsList = $('#mealsList');
 var drinksList = $('.drinksList');
 
 var apiUrl;
+var category;
 var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
+var selectedProtein;
+var selectedMeal;
 var mealUrl;
 var mealsFromApi = []; // Full list of meals from search
 var mealsToDisplay = []; // Randonmly selecting 3 meals from search
 var drinkUrl;
 var drinksFromApi = []; // Full list of drinks from search
 var drinksToDisplay = []; // Randomly selecting 3 drinks from search
-var randomIndex;
 var randomIndexArray = [];
 
 // The following functions have been tested
@@ -21,10 +24,27 @@ var randomIndexArray = [];
 // generateDrinkOptions();
 // generateUniqueIndex(array);
 
+selectProtein.change(function() {
+    selectedProtein = this.value;
+    if(selectedProtein === 'Entree'){
+        isCategory = true;
+    } else {
+        isCategory = false;
+    }
+    generateDropdown();
+});
+
+selectMeal.change(function() {
+    selectedMeal = this.value;
+    console.log(selectedMeal);
+    generateMealOptions();
+})
+
 // This function generates the options for the pulldown
 function generateDropdown() {
     if (isCategory) {
         apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+        console.log(apiUrl);
         fetch(apiUrl)
             .then(function (response) {
                 return response.json();
@@ -32,10 +52,12 @@ function generateDropdown() {
             .then(function (data) {
                 for (var i = 0; i < data.meals.length; i++) {
                     dropdownList[i] = data.meals[i].strCategory;
+                    selectMeal.append('<option value ="' + dropdownList[i] + '">' + dropdownList[i] + '</option>');
                 }
             });
     } else {
         apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+        console.log(apiUrl);
         fetch(apiUrl)
             .then(function (response) {
                 return response.json();
@@ -43,8 +65,8 @@ function generateDropdown() {
             .then(function (data) {
                 for (var i = 0; i < data.meals.length; i++) {
                     dropdownList[i] = data.meals[i].strArea;
+                    selectMeal.append('<option value ="' + dropdownList[i] + '">' + dropdownList[i] + '</option>');
                 }
-                generateMealOptions();
             });
     }
 }
@@ -52,9 +74,11 @@ function generateDropdown() {
 // This function generates the 3 meal options that will be displayed on screen
 function generateMealOptions() {
     if (isCategory) {
-        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + userSelectionMeal.text();
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + selectedMeal;
+        console.log(mealUrl);
     } else {
-        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=' + userSelectionMeal.text();
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=' + selectedMeal;
+        console.log(mealUrl);
     }
     // Grab options for url and populate them in an array
     fetch(mealUrl)
