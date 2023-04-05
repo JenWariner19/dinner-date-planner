@@ -1,4 +1,3 @@
-
 var selectProtein = $('#select-protein');
 var selectMeal = $('#select-meal');
 var selectLiquor = $('#select-liquor');
@@ -10,7 +9,6 @@ var chosenDrink = $('#chosen-drink');
 var apiUrl;
 var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
-
 var dropdownDisplay = '';
 var selectedProtein;
 var selectedMealOption;
@@ -18,7 +16,6 @@ var selectedMeal;
 var selectedMealID;
 var trimSelectedMeal;
 var selectedLiquor;
-
 var mealUrl;
 var mealIDs;
 var mealsFromApi = []; // Full list of meals from search
@@ -43,16 +40,8 @@ var drinkIngredients = [];
 var drinkMeasures = [];
 var drinkIngredientDisplay;
 var randomIndexArray = [];
-
 var randomIndex;
 var randomIndexArray = [];
-
-// The following functions have been tested
-// generateDropdown();
-// generateMealOptions();
-// generateDrinkOptions();
-// generateUniqueIndex(array);
-
 
 // Event listener for first dropdown
 selectProtein.change(function() {
@@ -263,7 +252,7 @@ function generateUniqueIndex(array) {
         i--;
       }
     }
-
+  }
 }
 
 //This function gets the array of meals and drinks, turns them
