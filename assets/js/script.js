@@ -3,6 +3,8 @@ var selectMeal = $('#select-meal');
 var selectLiquor = $('#select-liquor');
 var mealsList = $('#mealsList');
 var drinksList = $('#drinksList');
+var chosenMeal = $('#chosen-meal');
+var chosenDrink = $('#chosen-drink');
 
 var apiUrl;
 var category;
@@ -10,6 +12,7 @@ var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
 var dropdownDisplay = '';
 var selectedProtein;
+var selectedMealOption;
 var selectedMeal;
 var selectedLiquor;
 var mealUrl;
@@ -42,7 +45,7 @@ selectProtein.change(function() {
 
 // Event listener for second dropdown
 selectMeal.change(function() {
-    selectedMeal = this.value;
+    selectedMealOption = this.value;
     generateMealOptions();
 });
 
@@ -50,7 +53,7 @@ selectMeal.change(function() {
 selectLiquor.change(function() {
     selectedLiquor = this.value;
     generateDrinkOptions();
-})
+});
 
 // This function generates the options for the pulldown
 function generateDropdown() {
@@ -88,9 +91,9 @@ function generateDropdown() {
 // This function generates the 3 meal options that will be displayed on screen
 function generateMealOptions() {
     if (isCategory) {
-        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + selectedMeal;
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + selectedMealOption;
     } else {
-        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=' + selectedMeal;
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=' + selectedMealOption;
     }
     // Grab options for url and populate them in an array
     fetch(mealUrl)
@@ -117,12 +120,23 @@ function generateMealOptions() {
 
 // This function renders the 3 meal options to the screen
 function renderMealOptions() {
-    mealsHTML = '';
+    mealsHTML = 'Click to see recipe:';
     for (var i = 0; i < mealsToDisplay.length; i++) {
         mealsHTML += '<li>' + mealsToDisplay[i] + '</li>';
         mealsList.html(mealsHTML);
     }
-    console.log(mealsList.children());
+    var mealOptions = mealsList.children();
+    // Event listener for meal options
+    mealOptions.click(function () {
+        selectedMeal = this.innerHTML;
+        renderMealRecipe();
+    });
+}
+
+// This function renders the meal recipe
+function renderMealRecipe() {
+    recipeUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + selectedMeal.trim();
+    console.log(recipeUrl);
 }
 
 // This function generated the 3 drink options that will be displayed on screen
@@ -147,7 +161,7 @@ function generateDrinkOptions() {
 
 // This function renders the 3 drink options
 function renderDrinkOptions() {
-    drinksHTML = '';
+    drinksHTML = 'Click to see recipe:';
     for (var i = 0; i < drinksToDisplay.length; i++) {
         drinksHTML += '<li>' + drinksToDisplay[i] + '</li>';
         drinksList.html(drinksHTML);
