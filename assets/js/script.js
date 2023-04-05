@@ -1,4 +1,3 @@
-
 var selectProtein = $('#select-protein');
 var selectMeal = $('#select-meal');
 var selectLiquor = $('#select-liquor');
@@ -10,28 +9,38 @@ var chosenDrink = $('#chosen-drink');
 var apiUrl;
 var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
-
 var dropdownDisplay = '';
 var selectedProtein;
 var selectedMealOption;
 var selectedMeal;
+var selectedMealID;
 var selectedLiquor;
-
 var mealUrl;
+var mealIDs;
 var mealsFromApi = []; // Full list of meals from search
+var mealIDFromApi = [];
 var mealsToDisplay = []; // Randonmly selecting 3 meals from search
+var mealIDToDisplay = [];
+var mealsHTML;
+var mealRecipeUrl;
+var mealRecipeDisplay;
+var mealRecipeYoutube;
+var mealRecipeThumb;
 var drinkUrl;
 var drinksFromApi = []; // Full list of drinks from search
+var drinkIDFromApi = [];
 var drinksToDisplay = []; // Randomly selecting 3 drinks from search
+var drinkIDToDisplay = [];
+var drinksHTML;
+var drinkRecipeUrl;
+var drinkRecipeDisplay;
+var drinkRecipeThumb;
+var drinkIngredients = [];
+var drinkMeasures = [];
+var drinkIngredientDisplay;
+var randomIndexArray = [];
 var randomIndex;
 var randomIndexArray = [];
-
-// The following functions have been tested
-// generateDropdown();
-// generateMealOptions();
-// generateDrinkOptions();
-// generateUniqueIndex(array);
-
 
 // Event listener for first dropdown
 selectProtein.change(function() {
@@ -107,15 +116,18 @@ function generateMealOptions() {
         .then(function (data) {
             for (var i = 0; i < data.meals.length; i++) {
                 mealsFromApi[i] = data.meals[i].strMeal;
+                mealIDFromApi[i] = data.meals[i].idMeal;
             }
             if (mealsFromApi.length <= 3) {
                 for (var j = 0; j < mealsFromApi.length; j++) {
                     mealsToDisplay[j] = mealsFromApi[j];
+                    mealIDToDisplay[j] = mealIDFromApi[j];
                 }
             } else {
                 generateUniqueIndex(mealsFromApi);
                 for (var i = 0; i < randomIndexArray.length; i++) {
                     mealsToDisplay[i] = mealsFromApi[randomIndexArray[i]];
+                    mealIDToDisplay[i] = mealIDFromApi[randomIndexArray[i]];
                 }
             }
             renderMealOptions();
@@ -125,62 +137,107 @@ function generateMealOptions() {
 
 // This function renders the 3 meal options to the screen
 function renderMealOptions() {
-
-    mealsHTML = 'Click to see recipe:';
+    mealsHTML = 'Select a dish:';
     for (var i = 0; i < mealsToDisplay.length; i++) {
-        mealsHTML += '<li>' + mealsToDisplay[i] + '</li>';
+        mealsHTML += '<li value="' + mealIDToDisplay[i] + '">' + mealsToDisplay[i] + '</li>';
         mealsList.html(mealsHTML);
     }
     var mealOptions = mealsList.children();
     // Event listener for meal options
     mealOptions.click(function () {
         selectedMeal = this.innerHTML;
+        selectedMealID = this.value;
         renderMealRecipe();
     });
 }
 
 // This function renders the meal recipe
 function renderMealRecipe() {
-    recipeUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + selectedMeal.trim();
-    console.log(recipeUrl);
-
-  for (var i = 0; i < mealsToDisplay.length; i++) {
-    mealsList.append("<li>" + mealsToDisplay[i] + "</li>");
-  }
-
+    mealRecipeUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + selectedMealID;
+    fetch(mealRecipeUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                mealRecipeThumb = selectedMeal + '<img src="' + data.meals[0].strMealThumb + '" width=100 height=100>';
+                mealRecipeDisplay = '<a href="' + data.meals[0]. strSource + '">Click here to see recipe</a>';
+                mealRecipeYoutube = '<br><a href="' + data.meals[0]. strYoutube + '">Click here to see video</a>'
+                chosenMeal.html(mealRecipeThumb + mealRecipeDisplay + mealRecipeYoutube);
+            });
 }
 
 // This function generated the 3 drink options that will be displayed on screen
 function generateDrinkOptions() {
-  drinkUrl =
-    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" +
-    userSelectionDrink.text();
-  // Grab options for url and populate them in an array
-  fetch(drinkUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      for (var i = 0; i < data.drinks.length; i++) {
-        drinksFromApi[i] = data.drinks[i].strDrink;
-      }
-      generateUniqueIndex(drinksFromApi);
-      for (var i = 0; i < randomIndexArray.length; i++) {
-        drinksToDisplay[i] = drinksFromApi[randomIndexArray[i]];
-      }
-      renderDrinkOptions();
-    });
+    drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + selectedLiquor;
+    // Grab options for url and populate them in an array
+    fetch(drinkUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            for (var i = 0; i < data.drinks.length; i++) {
+                drinksFromApi[i] = data.drinks[i].strDrink;
+                drinkIDFromApi[i] = data.drinks[i].idDrink;
+            }
+            generateUniqueIndex(drinksFromApi);
+            for (var i = 0; i < randomIndexArray.length; i++) {
+                drinksToDisplay[i] = drinksFromApi[randomIndexArray[i]];
+                drinkIDToDisplay[i] = drinkIDFromApi[randomIndexArray[i]];
+            }
+            renderDrinkOptions();
+        });
 }
 
 // This function renders the 3 drink options
 function renderDrinkOptions() {
-
-    drinksHTML = 'Click to see recipe:';
+    drinksHTML = 'Select a drink:';
     for (var i = 0; i < drinksToDisplay.length; i++) {
-        drinksHTML += '<li>' + drinksToDisplay[i] + '</li>';
+        drinksHTML += '<li value="' + drinkIDToDisplay [i] + '">' + drinksToDisplay[i] + '</li>';
         drinksList.html(drinksHTML);
     }
+    var drinkOptions = drinksList.children();
+    // Event listener for meal options
+    drinkOptions.click(function () {
+        selectedDrink = this.innerHTML;
+        selectedDrinkID = this.value;
+        renderDrinkRecipe();
+    });
+}
 
+// This function render the drink recipe
+function renderDrinkRecipe() {
+    drinkRecipeUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + selectedDrinkID;
+    fetch(drinkRecipeUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                getIngredients(data);
+                drinkRecipeThumb = selectedDrink + '<img src="' + data.drinks[0].strDrinkThumb + '" width=100 height=100>';
+                drinkIngredientDisplay = '<ul>';
+                for(var i = 0; i < drinkIngredients.length; i++) {
+                    drinkIngredientDisplay += '<li>' + drinkIngredients[i] + ' - ' + drinkMeasures[i] + '</li>'; 
+                }
+                drinkIngredientDisplay += '</ul>'
+                drinkRecipeDisplay = '<p>' + data.drinks[0].strInstructions + '</p>';
+                chosenDrink.html(drinkRecipeThumb + drinkIngredientDisplay + drinkRecipeDisplay);
+            });
+}
+
+// This function gets the ingredients and measurements for the drinks
+function getIngredients(data) {
+    for (var i = 0; i < 15; i++) {
+        drinkIngredients[i] = Object.values(data.drinks[0])[i + 17];
+        drinkMeasures[i] = Object.values(data.drinks[0])[i + 32]
+    }
+    for(var i = 14; i >= 0; i--) {
+        if(drinkIngredients[i] === null) {
+            drinkIngredients.pop();
+        }
+        if(drinkMeasures[i] === null) {
+            drinkMeasures.pop();
+        }
+    }
 }
 
 // This function generates an array of random number without duplicates
@@ -194,7 +251,7 @@ function generateUniqueIndex(array) {
         i--;
       }
     }
-
+  }
 }
 
 //This function gets the array of meals and drinks, turns them
