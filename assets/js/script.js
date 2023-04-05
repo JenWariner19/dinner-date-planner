@@ -54,6 +54,7 @@ selectLiquor.change(function() {
 
 // This function generates the options for the pulldown
 function generateDropdown() {
+    selectMeal.removeClass('hidden');
     dropdownDisplay = '<option value=" ">(Please select from the following)</option>';
     if (isCategory) {
         apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
