@@ -1,11 +1,22 @@
-var userSelectionMeal = $("#mealDropdown").find(":selected");
-var userSelectionDrink = $("#drinkDropdown").find(":selected");
-var mealsList = $(".mealsList");
-var drinksList = $(".drinksList");
+
+var selectProtein = $('#select-protein');
+var selectMeal = $('#select-meal');
+var selectLiquor = $('#select-liquor');
+var mealsList = $('#mealsList');
+var drinksList = $('#drinksList');
+var chosenMeal = $('#chosen-meal');
+var chosenDrink = $('#chosen-drink');
 
 var apiUrl;
 var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
+
+var dropdownDisplay = '';
+var selectedProtein;
+var selectedMealOption;
+var selectedMeal;
+var selectedLiquor;
+
 var mealUrl;
 var mealsFromApi = []; // Full list of meals from search
 var mealsToDisplay = []; // Randonmly selecting 3 meals from search
@@ -20,6 +31,31 @@ var randomIndexArray = [];
 // generateMealOptions();
 // generateDrinkOptions();
 // generateUniqueIndex(array);
+
+
+// Event listener for first dropdown
+selectProtein.change(function() {
+    selectedProtein = this.value;
+    if(selectedProtein === 'Entree'){
+        isCategory = true;
+    } else {
+        isCategory = false;
+    }
+    dropdownDisplay = '';
+    generateDropdown();
+});
+
+// Event listener for second dropdown
+selectMeal.change(function() {
+    selectedMealOption = this.value;
+    generateMealOptions();
+});
+
+// Event listener for liquor dropdown
+selectLiquor.change(function() {
+    selectedLiquor = this.value;
+    generateDrinkOptions();
+});
 
 
 // This function generates the options for the pulldown
@@ -57,43 +93,61 @@ function generateDropdown() {
 
 // This function generates the 3 meal options that will be displayed on screen
 function generateMealOptions() {
-  if (isCategory) {
-    mealUrl =
-      "https://www.themealdb.com/api/json/v1/1/filter.php?c=" +
-      userSelectionMeal.text();
-  } else {
-    mealUrl =
-      "https://www.themealdb.com/api/json/v1/1/filter.php?a=" +
-      userSelectionMeal.text();
-  }
-  // Grab options for url and populate them in an array
-  fetch(mealUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      for (var i = 0; i < data.meals.length; i++) {
-        mealsFromApi[i] = data.meals[i].strMeal;
-      }
-      if (mealsFromApi.length <= 3) {
-        for (var j = 0; j < mealsFromApi.length; j++) {
-          mealsToDisplay[j] = mealsFromApi[j];
-        }
-      } else {
-        generateUniqueIndex(mealsFromApi);
-        for (var i = 0; i < randomIndexArray.length; i++) {
-          mealsToDisplay[i] = mealsFromApi[randomIndexArray[i]];
-        }
-      }
-      renderMealOptions();
-    });
+
+    if (isCategory) {
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + selectedMealOption;
+    } else {
+        mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=' + selectedMealOption;
+    }
+    // Grab options for url and populate them in an array
+    fetch(mealUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            for (var i = 0; i < data.meals.length; i++) {
+                mealsFromApi[i] = data.meals[i].strMeal;
+            }
+            if (mealsFromApi.length <= 3) {
+                for (var j = 0; j < mealsFromApi.length; j++) {
+                    mealsToDisplay[j] = mealsFromApi[j];
+                }
+            } else {
+                generateUniqueIndex(mealsFromApi);
+                for (var i = 0; i < randomIndexArray.length; i++) {
+                    mealsToDisplay[i] = mealsFromApi[randomIndexArray[i]];
+                }
+            }
+            renderMealOptions();
+        });
+
 }
 
 // This function renders the 3 meal options to the screen
 function renderMealOptions() {
+
+    mealsHTML = 'Click to see recipe:';
+    for (var i = 0; i < mealsToDisplay.length; i++) {
+        mealsHTML += '<li>' + mealsToDisplay[i] + '</li>';
+        mealsList.html(mealsHTML);
+    }
+    var mealOptions = mealsList.children();
+    // Event listener for meal options
+    mealOptions.click(function () {
+        selectedMeal = this.innerHTML;
+        renderMealRecipe();
+    });
+}
+
+// This function renders the meal recipe
+function renderMealRecipe() {
+    recipeUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + selectedMeal.trim();
+    console.log(recipeUrl);
+
   for (var i = 0; i < mealsToDisplay.length; i++) {
     mealsList.append("<li>" + mealsToDisplay[i] + "</li>");
   }
+
 }
 
 // This function generated the 3 drink options that will be displayed on screen
@@ -120,9 +174,13 @@ function generateDrinkOptions() {
 
 // This function renders the 3 drink options
 function renderDrinkOptions() {
-  for (var i = 0; i < drinksToDisplay.length; i++) {
-    drinksList.append("<li>" + drinksToDisplay[i] + "</li>");
-  }
+
+    drinksHTML = 'Click to see recipe:';
+    for (var i = 0; i < drinksToDisplay.length; i++) {
+        drinksHTML += '<li>' + drinksToDisplay[i] + '</li>';
+        drinksList.html(drinksHTML);
+    }
+
 }
 
 // This function generates an array of random number without duplicates
@@ -136,32 +194,33 @@ function generateUniqueIndex(array) {
         i--;
       }
     }
-  }
+
 }
 
 //This function gets the array of meals and drinks, turns them
 // into a string, then saves the user choice of meal and drink to local storage
 function savePairingtoLocalStorage(meal, drink) {
-  var meal = JSON.stringify();
-  var drink = JSON.stringify();
-  localStorage.setItem("meal", meal);
-  localStorage.setItem("drink", drink);
-}
 
-//This function gets the pairings from the local storage
-// displays and  appends the saved pairings on the page as a button
-function appendSavedPairings() {
-  var savedPairings = $("saved_pairings");
-  var mealChoice = localStorage.getItem("meal");
-  var drinkChoice = localStorage.getItem("drink");
-  var button = document.createElement("button");
-
-  button.addEventListener("click", function () {
-    if ((mealChoice !== null) & (drinkChoice !== null)) {
-      savedPairings.innerHTML = "You picked " + mealChoice + "and a " + drinkChoice;
-    }
-    savedPairings.appendChild(button);
-  });
-}
-
-//This function lets the user click the saved options to display them on the page again
+    var meal = JSON.stringify();
+    var drink = JSON.stringify();
+    localStorage.setItem("meal", meal);
+    localStorage.setItem("drink", drink);
+  }
+  
+  //This function gets the pairings from the local storage
+  // displays and  appends the saved pairings on the page as a button
+  function appendSavedPairings() {
+    var savedPairings = $("saved_pairings");
+    var mealChoice = localStorage.getItem("meal");
+    var drinkChoice = localStorage.getItem("drink");
+    var button = document.createElement("button");
+  
+    button.addEventListener("click", function () {
+      if ((mealChoice !== null) & (drinkChoice !== null)) {
+        savedPairings.innerHTML = "You picked " + mealChoice + "and a " + drinkChoice;
+      }
+      savedPairings.appendChild(button);
+    });
+  }
+  
+  //This function lets the user click the saved options to display them on the page again
