@@ -24,30 +24,35 @@ var randomIndexArray = [];
 
 // This function generates the options for the pulldown
 function generateDropdown() {
-  if (isCategory) {
-    apiUrl = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
-    fetch(apiUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        for (var i = 0; i < data.meals.length; i++) {
-          dropdownList[i] = data.meals[i].strCategory;
-        }
-      });
-  } else {
-    apiUrl = "https://www.themealdb.com/api/json/v1/1/list.php?a=list";
-    fetch(apiUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        for (var i = 0; i < data.meals.length; i++) {
-          dropdownList[i] = data.meals[i].strArea;
-        }
-        generateMealOptions();
-      });
-  }
+    selectMeal.removeClass('hidden');
+    dropdownDisplay = '<option value=" ">(Please select from the following)</option>';
+    if (isCategory) {
+        apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+        fetch(apiUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                for (var i = 0; i < data.meals.length; i++) {
+                    dropdownList[i] = data.meals[i].strCategory;
+                    dropdownDisplay += '<option value ="' + dropdownList[i] + '">' + dropdownList[i] + '</option>';
+                }
+                selectMeal.html(dropdownDisplay);
+            });
+    } else {
+        apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+        fetch(apiUrl)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                for (var i = 0; i < data.meals.length; i++) {
+                    dropdownList[i] = data.meals[i].strArea;
+                    dropdownDisplay += '<option value ="' + dropdownList[i] + '">' + dropdownList[i] + '</option>';
+                }
+                selectMeal.html(dropdownDisplay);
+            });
+    }
 }
 
 // This function generates the 3 meal options that will be displayed on screen
