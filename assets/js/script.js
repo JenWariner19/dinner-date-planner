@@ -181,3 +181,30 @@ function generateUniqueIndex(array) {
         }
     }
 }
+
+//This function gets the array of meals and drinks, turns them
+// into a string, then saves the user choice of meal and drink to local storage
+function savePairingtoLocalStorage(meal, drink) {
+    var meal = JSON.stringify();
+    var drink = JSON.stringify();
+    localStorage.setItem("meal", meal);
+    localStorage.setItem("drink", drink);
+  }
+  
+  //This function gets the pairings from the local storage
+  // displays and  appends the saved pairings on the page as a button
+  function appendSavedPairings() {
+    var savedPairings = $("saved_pairings");
+    var mealChoice = localStorage.getItem("meal");
+    var drinkChoice = localStorage.getItem("drink");
+    var button = document.createElement("button");
+  
+    button.addEventListener("click", function () {
+      if ((mealChoice !== null) & (drinkChoice !== null)) {
+        savedPairings.innerHTML = "You picked " + mealChoice + "and a " + drinkChoice;
+      }
+      savedPairings.appendChild(button);
+    });
+  }
+  
+  //This function lets the user click the saved options to display them on the page again
