@@ -1,3 +1,4 @@
+
 var selectProtein = $('#select-protein');
 var selectMeal = $('#select-meal');
 var selectLiquor = $('#select-liquor');
@@ -7,9 +8,9 @@ var chosenMeal = $('#chosen-meal');
 var chosenDrink = $('#chosen-drink');
 
 var apiUrl;
-var category;
 var isCategory; // Boolean for the first meal dropdown
 var dropdownList = []; // Array to populate the dropdown for meals
+
 var dropdownDisplay = '';
 var selectedProtein;
 var selectedMealOption;
@@ -17,6 +18,7 @@ var selectedMeal;
 var selectedMealID;
 var trimSelectedMeal;
 var selectedLiquor;
+
 var mealUrl;
 var mealIDs;
 var mealsFromApi = []; // Full list of meals from search
@@ -42,6 +44,16 @@ var drinkMeasures = [];
 var drinkIngredientDisplay;
 var randomIndexArray = [];
 
+var randomIndex;
+var randomIndexArray = [];
+
+// The following functions have been tested
+// generateDropdown();
+// generateMealOptions();
+// generateDrinkOptions();
+// generateUniqueIndex(array);
+
+
 // Event listener for first dropdown
 selectProtein.change(function() {
     selectedProtein = this.value;
@@ -65,6 +77,7 @@ selectLiquor.change(function() {
     selectedLiquor = this.value;
     generateDrinkOptions();
 });
+
 
 // This function generates the options for the pulldown
 function generateDropdown() {
@@ -101,6 +114,7 @@ function generateDropdown() {
 
 // This function generates the 3 meal options that will be displayed on screen
 function generateMealOptions() {
+
     if (isCategory) {
         mealUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=' + selectedMealOption;
     } else {
@@ -130,6 +144,7 @@ function generateMealOptions() {
             }
             renderMealOptions();
         });
+
 }
 
 // This function renders the 3 meal options to the screen
@@ -239,21 +254,22 @@ function getIngredients(data) {
 
 // This function generates an array of random number without duplicates
 function generateUniqueIndex(array) {
-    randomIndexArray[0] = Math.floor(Math.random() * array.length);
-    for (var i = 1; i < 3; i++) {
-        randomIndexArray[i] = Math.floor(Math.random() * array.length);
-        for (var j = 1; j < randomIndexArray.length; j++) {
-            if (randomIndexArray[j - 1] === randomIndexArray[i]) {
-                randomIndexArray.pop();
-                i--;
-            }
-        }
+  randomIndexArray[0] = Math.floor(Math.random() * array.length);
+  for (var i = 1; i < 3; i++) {
+    randomIndexArray[i] = Math.floor(Math.random() * array.length);
+    for (var j = 1; j < randomIndexArray.length; j++) {
+      if (randomIndexArray[j - 1] === randomIndexArray[i]) {
+        randomIndexArray.pop();
+        i--;
+      }
     }
+
 }
 
 //This function gets the array of meals and drinks, turns them
 // into a string, then saves the user choice of meal and drink to local storage
 function savePairingtoLocalStorage(meal, drink) {
+
     var meal = JSON.stringify();
     var drink = JSON.stringify();
     localStorage.setItem("meal", meal);
