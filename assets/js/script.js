@@ -14,7 +14,6 @@ var selectedProtein;
 var selectedMealOption;
 var selectedMeal;
 var selectedMealID;
-var trimSelectedMeal;
 var selectedLiquor;
 var mealUrl;
 var mealIDs;
