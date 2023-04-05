@@ -159,15 +159,4 @@ function appendSavedPairings() {
   });
 }
 
-//This lets the user click the saved options to display them on the page again
-var savedPairings = $("saved_pairings");
-
-savedPairings.addEventListener("click", function (event) {
-  var savedPairClick = event.target;
-  var link = document.createElement("a");
-  link.href = "https://example.com";
-  link.target = "_blank";
-  link.innerHTML = "View details";
-  savedPairClick.insertAdjacentElement("afterend", link);
-});
-console.log("hello");
+//This function lets the user click the saved options to display them on the page again
