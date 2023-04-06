@@ -160,13 +160,13 @@ function renderMealRecipe() {
             })
             .then(function (data) {
                 mealRecipeThumb = selectedMeal + '<img src="' + data.meals[0].strMealThumb + '" width=100 height=100>';
-                mealRecipeDisplay = '<a href="' + data.meals[0]. strSource + '">Click here to see recipe</a>';
-                mealRecipeYoutube = '<br><a href="' + data.meals[0]. strYoutube + '">Click here to see video</a>'
+                mealRecipeDisplay = '<a href="' + data.meals[0]. strSource + '" target="_blank">Click here to see recipe</a>';
+                mealRecipeYoutube = '<br><a href="' + data.meals[0]. strYoutube + '" target="_blank">Click here to see video</a>'
                 chosenMeal.html(mealRecipeThumb + mealRecipeDisplay + mealRecipeYoutube);
             });
 }
 
-// This function generated the 3 drink options that will be displayed on screen
+// This function generates the 3 drink options that will be displayed on screen
 function generateDrinkOptions() {
     drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + selectedLiquor;
     // Grab options for url and populate them in an array
@@ -204,7 +204,7 @@ function renderDrinkOptions() {
     });
 }
 
-// This function render the drink recipe
+// This function renders the drink recipe
 function renderDrinkRecipe() {
     drinkRecipeUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + selectedDrinkID;
     fetch(drinkRecipeUrl)
