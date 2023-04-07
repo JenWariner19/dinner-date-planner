@@ -50,7 +50,10 @@ var mealArray = [];
 var drinkArray = [];
 var mealArrayID = [];
 var drinkArrayID = [];
-var savedHTML;
+var savedHTML = '';
+var selectedIndex;
+var savedMealHTML;
+var savedBtn;
 
 displaySavedPairingsStorage();
 // Event listener for first dropdown
@@ -316,22 +319,19 @@ function savePairingtoLocalStorage() {
     localStorage.setItem("drinkID", JSON.stringify(drinkArrayID));
 }
 
-//This function gets the pairings from the local storage
+// This function gets the pairings from the local storage
 // displays and  appends the saved pairings on the page as a button
 function appendSavedPairings() {
-    savedMeal.html(
-        "<p>You picked " + selectedMeal + " and a " + selectedDrink + "</p>"
-    );
-    var button = '<button id ="savedBtn"> Save </button>';
-    savedMeal.append(button);
-    var savedBtn = $("#savedBtn");
+    savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '<br><button id="savedBtn">Save Pairing</button>';
+    savedMeal.html(savedMealHTML);
+    savedBtn = $("#savedBtn");
     savedBtn.click(function () {
         savePairingtoLocalStorage();
         displaySavedPairing();
     });
 }
 
-//This
+// This function gets the saved pairing from local storage
 function displaySavedPairingsStorage() {
     mealArray = JSON.parse(localStorage.getItem("meal"));
     mealArrayID = JSON.parse(localStorage.getItem("mealID"));
@@ -351,27 +351,21 @@ function displaySavedPairingsStorage() {
     displaySavedPairing();
 }
 
-//This function lets the user click the saved options to display them on the page again
+// This function lets the user click the saved options to display them on the page again
 function displaySavedPairing() {
+    savedHTML = '';
     for (var i = 0; i < mealArray.length; i++) {
-        savedHTML +=
-            '<li data-mealID="' +
-            mealArrayID[i] +
-            '" data-drinkID="' +
-            drinkArrayID[i] +
-            '">' +
-            mealArray[i] +
-            " and " +
-            drinkArray[i] +
-            "</li>";
+        savedHTML += '<li value="' + i + '">' + mealArray[i] + ' and ' + drinkArray[i] + '</li>';
         pairingList.html(savedHTML);
     }
     var listOptions = pairingList.children();
-
     listOptions.click(function () {
-        selectedMealID = this.data-mealID;
-        selectedDrinkID = this.data-drinkID;
-        console.log(selectedMealID);
-        console.log(selectedDrinkID);
+        selectedIndex = this.value;
+        selectedMeal = mealArray[selectedIndex];
+        selectedMealID = mealArrayID[selectedIndex];
+        renderMealRecipe();
+        selectedDrink = drinkArray[selectedIndex];
+        selectedDrinkID = drinkArrayID[selectedIndex];
+        renderDrinkRecipe();
     });
 }
