@@ -54,10 +54,12 @@ var savedHTML = '';
 var selectedIndex;
 var savedMealHTML;
 var savedBtn;
+var needButton;
 
 displaySavedPairingsStorage();
 // Event listener for first dropdown
 selectProtein.change(function () {
+    needButton = true;
     selectedProtein = this.value;
     if (selectedProtein === "Entree") {
         isCategory = true;
@@ -322,13 +324,18 @@ function savePairingtoLocalStorage() {
 // This function gets the pairings from the local storage
 // displays and  appends the saved pairings on the page as a button
 function appendSavedPairings() {
-    savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '<br><button id="savedBtn">Save Pairing</button>';
-    savedMeal.html(savedMealHTML);
-    savedBtn = $("#savedBtn");
-    savedBtn.click(function () {
-        savePairingtoLocalStorage();
-        displaySavedPairing();
-    });
+    if(needButton){
+        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '<br><button id="savedBtn">Save Pairing</button>';
+        savedMeal.html(savedMealHTML);
+        savedBtn = $("#savedBtn");
+        savedBtn.click(function () {
+            savePairingtoLocalStorage();
+            displaySavedPairing();
+        });
+    } else {
+        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink;
+        savedMeal.html(savedMealHTML); 
+    }
 }
 
 // This function gets the saved pairing from local storage
@@ -360,6 +367,7 @@ function displaySavedPairing() {
     }
     var listOptions = pairingList.children();
     listOptions.click(function () {
+        needButton = false;
         selectedIndex = this.value;
         selectedMeal = mealArray[selectedIndex];
         selectedMealID = mealArrayID[selectedIndex];
