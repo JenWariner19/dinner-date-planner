@@ -24,6 +24,7 @@ body {
     font-size: 40px;
 }
 
+
 /* box with drop down*/
 .select-box {
     opacity: 0.9;
@@ -47,18 +48,24 @@ body {
     background-color: #422006;
     }
 
-  .about {
-    opacity: 0.9;
-    font-size: 42px;
-    margin:auto;
-    width:400px;
-    height: 300px;
-    border: 3px solid #fafafa;
-    background-color: #422006;
-  }
+    #list_of_meals,
+    #chosen-meal,
+    #list_of_cocktails,
+    #chosen-drink,
+    #meal-drink,
+    #saved_pairings {
+      overflow: auto;
+    }
 
-  #about-desc {
-    flex: 1;
-    font-size: 30px;
-  }
 
+    @media screen and (max-width: 992px) {
+        section .select-box {
+          width: 50%;
+        }
+      }
+   
+      @media screen and (max-width: 768px) {
+        section .select-box {
+          width: 25%;
+        }
+      }
