@@ -57,15 +57,17 @@ body {
       overflow: auto;
     }
 
-
-    @media screen and (max-width: 992px) {
-        section .select-box {
-          width: 50%;
-        }
-      }
-   
-      @media screen and (max-width: 768px) {
-        section .select-box {
-          width: 25%;
-        }
-      }
+    .about {
+      opacity: 0.9;
+      font-size: 42px;
+      margin:auto;
+      width:400px;
+      height: 300px;
+      border: 3px solid #fafafa;
+      background-color: #422006;
+    }
+  
+    #about-desc {
+      flex: 1;
+      font-size: 30px;
+    }
