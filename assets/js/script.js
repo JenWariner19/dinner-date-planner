@@ -333,7 +333,7 @@ function appendSavedPairings() {
             displaySavedPairing();
         });
     } else {
-        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '</p';
+        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '</p>';
         savedMeal.html(savedMealHTML); 
     }
 }
