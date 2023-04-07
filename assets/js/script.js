@@ -137,7 +137,7 @@ function generateMealOptions() {
 
 // This function renders the 3 meal options to the screen
 function renderMealOptions() {
-    mealsHTML = 'Select a dish:';
+    mealsHTML = 'Select a dish to view:';
     for (var i = 0; i < mealsToDisplay.length; i++) {
         mealsHTML += '<li value="' + mealIDToDisplay[i] + '">' + mealsToDisplay[i] + '</li>';
         mealsList.html(mealsHTML);
@@ -190,7 +190,7 @@ function generateDrinkOptions() {
 
 // This function renders the 3 drink options
 function renderDrinkOptions() {
-    drinksHTML = 'Select a drink:';
+    drinksHTML = 'Select a drink to view:';
     for (var i = 0; i < drinksToDisplay.length; i++) {
         drinksHTML += '<li value="' + drinkIDToDisplay [i] + '">' + drinksToDisplay[i] + '</li>';
         drinksList.html(drinksHTML);
