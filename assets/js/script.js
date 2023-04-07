@@ -325,7 +325,7 @@ function savePairingtoLocalStorage() {
 // displays and  appends the saved pairings on the page as a button
 function appendSavedPairings() {
     if(needButton){
-        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '<br><button id="savedBtn">Save Pairing</button>';
+        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '</p><button id="savedBtn">Save Pairing</button>';
         savedMeal.html(savedMealHTML);
         savedBtn = $("#savedBtn");
         savedBtn.click(function () {
@@ -333,7 +333,7 @@ function appendSavedPairings() {
             displaySavedPairing();
         });
     } else {
-        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink;
+        savedMealHTML = '<p>You picked ' + selectedMeal + ' and a ' + selectedDrink + '</p';
         savedMeal.html(savedMealHTML); 
     }
 }
