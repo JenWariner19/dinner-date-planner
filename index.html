@@ -21,10 +21,16 @@
         <source src="./assets/music/midnight-voices-full.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <div id="heading" class="mb-8">
+    <header id="heading" class="mb-8">
         <h1 class="font-medium">Dinner Date Planner</h1>
         <h2 id="small-head" class="font-medium">Make a Memorable Impression</h2>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#saved_pairings">Saved Pairings</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div class="flex flex-wrap flex-row justify-evenly mb-8">
         <div class="mb-8 ml-3">
@@ -102,7 +108,7 @@
 
     <div class="container flex flex-row flex-wrap mb-8 p-3 overflow-y-auto about">
         <footer>
-            <h3 class="underline">About</h3>
+            <h3 id="about" class="underline">About</h3>
             <p  id="about-desc">The Dinner Date Planner helps you to plan a memorable dinner for that special someone. Search for a meal based on the type of cuisine or by the protein. Once you select the meal you would like to make search for a cocktail to serve as well. We will save your selected choices so that you can come back and view the pairings you have already done.</p>
         </footer>
     </div>
