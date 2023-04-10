@@ -3,26 +3,52 @@ body {
     font-family: "Parisienne", sans-serif;
 }
 
+
+header {
+  background-color: #422006;
+  opacity: 0.9;
+  border: solid 3px;
+  padding: 60px;
+  margin: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 75px;
+}
+
+header h2{
+  font-size: 40px;
+}
+
+header nav {
+  display:flex;
+  padding-top: 10px;
+  margin-right:20px;
+  float: right;
+  font-size: 30px;
+  color: white;
+}
+
+header nav ul {
+  list-style-type: none;
+  position: relative;
+}
+
+header nav ul li {
+  display: inline-block; 
+  padding: 5px;
+  margin-left: 10px
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .background {
     background-size: contain;
 }
 
-#heading {
-    background-color: #422006;
-    opacity: 0.9;
-    border: solid 3px;
-    padding: 5px;
-    margin: 10px;
-    margin-bottom: 30px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 75px;
-}
-
-#small-head{
-    font-size: 40px;
-}
 
 
 /* box with drop down*/
