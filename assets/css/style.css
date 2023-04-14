@@ -8,7 +8,6 @@ header {
   background-color: #422006;
   opacity: 0.9;
   border: solid 3px;
-  padding: 60px;
   margin: 10px;
   margin-bottom: 30px;
   justify-content: center;
@@ -49,6 +48,21 @@ a:hover {
     background-size: contain;
 }
 
+.howto {
+  opacity: 0.9;
+  font-size: 34px;
+  margin:auto;
+  width:400px;
+  height: 300px;
+  border: 3px solid #fafafa;
+  background-color: #422006;
+}
+
+#howto-desc {
+  flex: 1;
+  font-size: 26px;
+}
+
 
 
 /* box with drop down*/
@@ -64,7 +78,7 @@ a:hover {
 }
 
 /* boxes for content.. Just need to be positioned */
- section {
+ /* section {
     opacity: 0.9;
     font-size: 30px;
     margin-right: 20px;
@@ -72,7 +86,7 @@ a:hover {
     height: 300px;
     border: 3px solid #fafafa;
     background-color: #422006;
-    }
+    } */
 
     #list_of_meals,
     #chosen-meal,
@@ -96,4 +110,10 @@ a:hover {
     #about-desc {
       flex: 1;
       font-size: 30px;
+    }
+
+    @media screen and (min-width: 400px) {
+      .select-box {
+        flex-direction: column;
+        margin: 10px;}
     }
