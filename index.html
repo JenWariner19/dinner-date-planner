@@ -21,7 +21,7 @@
         <source src="./assets/music/midnight-voices-full.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <header id="heading" class="mb-8">
+    <header id="heading" class="flex flex-wrap flex-col mb-8">
         <h1 class="font-medium">Dinner Date Planner</h1>
         <h2 id="small-head" class="font-medium">Make a Memorable Impression</h2>
         <nav>
@@ -32,77 +32,77 @@
         </nav>
     </header>
 
+    <div class="container flex flex-row flex-wrap mb-8 p-3 overflow-y-auto about">
+        <section>
+            <h3 id="howto" class="underline">How to Guide</h3>
+            <ol  id="howto-desc">
+                <li>1. Select how you would like to search for a meal (cuisine or protein).</li>
+                <li>2. Select a meal that you like to view a recipe for.</li>
+                <li>3. Select the type of liquor you would like to feature in your cocktail.</li>
+                <li>4. Select a cocktail that you like to view a recipe for.</li>
+                <li>5. Select "Save Pairing" if you want to save your choices, or you can start a new search.</li>
+            </ol>
+        </section>
+    </div>
+
     <div class="flex flex-wrap flex-row justify-evenly mb-8">
-        <div class="mb-8 ml-3">
-            <div class="basis-1/4 select-box">
-                <div class="options-container">
-                    <label class="underline" for="cuisine">Select Your Cuisine</label>
+        <section class="mb-8 select-box">
+                <label class="underline" for="cuisine">Select Your Cuisine</label>
                 <br>
-                    <select class="mt-4 text-black" name="protein" id="select-protein">
-                        <option value=" ">(Please select from the following)</option>
-                        <option value="Type">Type of cuisine</option>
-                        <option value="Entree">Entree(Protein)</option>
-                    </select>
-                    <select class="hidden mt-4 text-black" name="protein" id="select-meal">
-                        <option value=" ">(Please select from the following)</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+                <select class="mt-4 text-black" name="protein" id="select-protein">
+                    <option value=" ">(Please select from the following)</option>
+                    <option value="Type">Type of cuisine</option>
+                    <option value="Entree">Entree(Protein)</option>
+                </select>
+                <select class="hidden mt-4 text-black" name="protein" id="select-meal">
+                    <option value=" ">(Please select from the following)</option>
+                </select>
+        </section>
 
 
-        <section class="mb-8 p-3" id="list_of_meals">
+        <section class="mb-8 p-3 select-box" id="list_of_meals">
             <ul id="mealsList"></ul>
         </section>
 
-        <section class="mb-8 p-3" id="chosen-meal">
-
+        <section class="mb-8 p-3 select-box" id="chosen-meal">
         </section>
     </div>
 
     <div class="flex flex-row flex-wrap justify-evenly mb-8">
-        <div class="mb-8 ml-3">
-            <div class="basis-1/4 select-box">
-                <div class="options-container">
-                    <label class="underline" for="cocktail">Select Your Cocktail</label>
+        <section class="mb-8 select-box">
+                <label class="underline" for="cocktail">Select Your Cocktail</label>
                 <br>
-                    <select class="mt-4 text-black" name="liquor" id="select-liquor">
-                        <option value=" ">(Please select from the following)</option>
-                        <option value="Tequila">Tequila</option>
-                       <option value="Vodka">Vodka</option>
-                       <option value="Gin">Gin</option>
-                       <option value="Brandy">Brandy</option>
-                       <option value="Cognac">Cognac</option>
-                       <option value="Scotch">Scotch</option>
-                       <option value="Bourbon">Bourbon</option>
-                        <option value="Wine">Wine</option>
-                       <option value="Champagne">Champagne</option>
-                       <option value="Prosecco">Prosecco</option>
-                       <option value="Beer">Beer</option>
- 
-                   </select>
-                </div>
-            </div>
-        </div>
+                <select class="mt-4 text-black" name="liquor" id="select-liquor">
+                    <option value=" ">(Please select from the following)</option>
+                    <option value="Tequila">Tequila</option>
+                    <option value="Vodka">Vodka</option>
+                    <option value="Gin">Gin</option>
+                    <option value="Brandy">Brandy</option>
+                    <option value="Cognac">Cognac</option>
+                    <option value="Scotch">Scotch</option>
+                    <option value="Bourbon">Bourbon</option>
+                    <option value="Wine">Wine</option>
+                    <option value="Champagne">Champagne</option>
+                    <option value="Prosecco">Prosecco</option>
+                    <option value="Beer">Beer</option>
+                </select>
+        </section>
 
-        <section class="mb-8 p-3" id="list_of_cocktails">
+        <section class="mb-8 p-3 select-box" id="list_of_cocktails">
             <ul id="drinksList"></ul>
         </section>
 
-        <section class="mb-8 p-3" id="chosen-drink">
-
+        <section class="mb-8 p-3 select-box" id="chosen-drink">
         </section>
     </div>
 
     <div class="flex flex-row flex-wrap justify-evenly mb-10">
-        <section class="basis-1/2 mb-8 p-3" id="meal-drink">
-
+        <section class="mb-8 p-3 select-box" id="meal-drink">
         </section>
         
-        <section class="mb-8 ml-3 select-box" id="saved_pairings">
+        <section class="mb-8 select-box" id="saved_pairings">
             <label class="underline">Saved Pairings</label>
             <ul id="PairingsList"></ul>
-            
         </section>
     </div>
 
